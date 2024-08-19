@@ -1,0 +1,52 @@
+.counter[type='number']::-webkit-inner-spin-button,
+  .counter[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+ .counter:focus {
+    outline: none !important;
+  }
+
+  .sign:focus {
+    outline: none !important;
+  }
+  .sign{
+    cursor: pointer;    
+    padding: 14px;
+    display: flex;
+    justify-content: center;align-items: center;
+    background-color: #00aae6;
+  }
+  
+
+
+  .counter{
+    width: 100%;
+    border: 0;
+    text-align: center;
+  }
+  .container{display: flex;
+    height: fit-content;
+    border: 2px solid #00aae6;
+    align-items: center;
+    border-radius: 50px;
+    overflow: hidden;
+    max-width: 200px;
+    width: 100%;
+  }
+  .inputBlock{
+    width: auto;
+  }
+  @media (max-width: 1240px) {
+    .sign {
+        padding: 12px 6px;
+        
+    }
+    .counter{
+      font-size: 16px;
+    }
+    .container{
+      width: 110px;
+    }
+}

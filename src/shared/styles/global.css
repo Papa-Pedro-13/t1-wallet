@@ -1,0 +1,22 @@
+
+@font-face {
+  font-family: 'ALSHauss-Bold';
+  src: url('./fonts/ALSHauss-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: 'ALSHauss-Bold', sans-serif;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 22px;
+}
+ul,li,h1,h2,h3,h4,h5,h6,p{
+  padding: 0;margin: 0;
+
+}
+a{
+  color: inherit;
+  text-decoration: none;
+}

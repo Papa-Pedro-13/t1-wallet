@@ -1,0 +1,66 @@
+.button {
+  text-align: center;
+  padding: 20px 80px;
+  font-size: 26px;
+  color: #fbfbfd;
+  background-color: #00aae6;
+  user-select: none;
+  border: 1px solid #00aae6;
+  border-radius: 200px;
+  cursor: pointer;
+  transition: all 0.5s linear;
+}
+.button.small{
+  padding: 12px 24px;
+  font-size: 22px;
+}
+.button.large{
+  border-radius: 480px;
+  padding: 50px 160px;
+  font-size: 48px;
+}
+.button:hover {
+  background-color: #005aae;
+  color: #fbfbfd;
+}
+.button:disabled {
+  opacity: .8;
+  cursor: not-allowed;
+}
+.button.reverse{
+  background-color: #fbfbfd;
+  color: #00aae6;
+}
+.button.reverse:hover{
+  background-color: #ededed;
+}
+@media(max-width:1240px){
+  .button{
+    padding: 16px 50px;
+    font-size: 18px;
+  }
+  .button.large{
+    border-radius: 300px;
+    font-size: 32px;
+    padding: 30px 100px;
+  }
+  .button.small{
+    padding: 8px 15px;
+    font-size: 16px;
+  }
+}
+@media(max-width:768px){
+  .button{
+    padding: 16px 48px;
+    font-size: 16px;
+  }
+  .button.large{
+    border-radius: 300px;
+    font-size: 26px;
+    padding:24px 36px ;
+  }
+  .button.small{
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+}
