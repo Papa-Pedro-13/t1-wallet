@@ -7,4 +7,9 @@
 .main {
   flex: 1;
   padding: 20px;
+  padding-left: 340px;
+  transition: all .3s ease-in;
+}
+.mainFull{
+  padding-left: 20px;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRouter from './routes/AppRouter';
 import { Toaster } from 'react-hot-toast';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 const App: React.FC = () => {
   return (

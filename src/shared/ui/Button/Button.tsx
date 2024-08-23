@@ -7,7 +7,7 @@ interface ButtonProps {
   size?: 'normal' | 'large' | 'small';
   disabled?: boolean;
   style?: 'normal' | 'reverse';
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({

@@ -4,32 +4,46 @@ import styles from './Sidebar.module.css';
 
 import { FaRubleSign, FaHome, FaCoins } from 'react-icons/fa';
 import { Button } from '../../shared/ui';
-
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isOpen: boolean;
+  changeOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
   const navigate = useNavigate();
   const onClickHandler = () => {
     navigate('/login');
   };
 
   return (
-    <nav className={styles.sidebar}>
+    <nav
+      className={styles.sidebar}
+      style={{ transform: `${isOpen ? 'none' : 'translateX(-101%)'}` }}
+    >
+      <div
+        className={`${styles.close} ${isOpen ? styles.openClose : ''}`}
+        onClick={() => changeOpen(!isOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <ul className={styles.list}>
         <li className={styles.item}>
           <Link
             to='/'
             className={styles.link}
           >
-            <FaHome />
+            <FaHome size={24} />
             Главная
           </Link>
         </li>
         <li className={styles.item}>
           <Link
-            to='/budget'
+            to='/finance'
             className={styles.link}
           >
-            <FaRubleSign />
-            Бюджет
+            <FaRubleSign size={24} />
+            Центры финансового обеспечения
           </Link>
         </li>
       </ul>

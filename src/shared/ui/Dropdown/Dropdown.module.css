@@ -1,0 +1,41 @@
+.input{
+  width: 100%; padding: 10px 0; box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid #bdbdbd;
+  outline: none;
+  font-size: 18px;
+  background-color: inherit;
+}
+.input:focus{
+  border-bottom: 1px solid #00aae6;
+  outline: none;
+}
+.list{
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 150px;
+  overflow-y: auto;
+  border-left: 1px solid #00aae6;
+  border-right: 1px solid #00aae6;
+  border-bottom: 1px solid #00aae6;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  z-index: 100;
+}
+.container{
+  position: relative;
+  width: 100%;
+}
+.bad{
+   padding: 8px;
+   color: #a5b4c4;
+}
+.option{font-size: 18px;
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #00aae6;
+  
+}

@@ -1,0 +1,49 @@
+.container {
+  padding: 20px;
+}
+
+.balanceInfo {
+  margin-bottom: 20px;
+}
+
+.transactions {
+  margin-top: 20px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.header {
+  display: contents;
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.row {
+  display: contents;
+  border-bottom: 1px solid #ccc;
+}
+
+.cell {
+  padding: 12px 16px;
+  border-right: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.cell:last-child {
+  border-right: none;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.header .cell:hover {
+  background-color: #e0e0e0;
+}
