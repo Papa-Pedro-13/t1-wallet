@@ -1,14 +1,15 @@
 .layout {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 
 .main {
   flex: 1;
   padding: 20px;
+  padding-top: 50px;
   padding-left: 340px;
-  transition: all .3s ease-in;
+  transition: all .3s linear;
 }
 .mainFull{
   padding-left: 20px;
