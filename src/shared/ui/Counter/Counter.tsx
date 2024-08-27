@@ -1,12 +1,19 @@
-import { useState } from 'react';
 import styles from './Counter.module.css';
 import { FaPlus, FaMinus } from 'react-icons/fa6';
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+interface CounterProps {
+  max: number;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Counter: React.FC<CounterProps> = ({ max, count, setCount }) => {
+  const MAX = 99999;
+
   const increment = () => {
     setCount((prev) => {
-      if (prev == 9999) return 9999;
+      if (prev == max) return max;
+      if (prev >= MAX) return MAX;
       return prev + 1;
     });
   };
@@ -17,8 +24,20 @@ const Counter = () => {
     });
   };
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value <= -1) return 0;
-    if (+e.target.value >= 10000) return 9999;
+    if (+e.target.value <= -1) {
+      setCount(0);
+      return;
+    }
+
+    if (+e.target.value >= MAX && max > MAX) {
+      setCount(MAX);
+      return;
+    }
+
+    if (+e.target.value >= max + 1) {
+      setCount(max);
+      return;
+    }
     setCount(+e.target.value);
   };
 

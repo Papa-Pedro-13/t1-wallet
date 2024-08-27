@@ -25,6 +25,8 @@
     width: 100%;
     border: 0;
     text-align: center;
+
+    background-color: inherit;
   }
   .container{display: flex;
     height: fit-content;
@@ -47,6 +49,6 @@
       font-size: 16px;
     }
     .container{
-      width: 110px;
+      width: 120px;
     }
 }

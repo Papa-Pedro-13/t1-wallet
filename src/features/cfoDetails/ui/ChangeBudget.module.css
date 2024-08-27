@@ -1,0 +1,12 @@
+.container{
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #f4f4f5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* width: fit-content; */
+}
+.headline{
+  width: 100%;
+}

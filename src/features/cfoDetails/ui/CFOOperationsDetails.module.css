@@ -1,5 +1,5 @@
 .container {
-  padding: 20px;
+  
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -34,7 +34,7 @@
 
 .table {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 2fr 2fr 3fr;
   /* border: 1px solid #ccc; */
   border-radius: 4px;
   overflow: hidden;
@@ -47,8 +47,8 @@
   line-height: 1;
 }
 .balance{
-  font-size: 26px;
-  color: #87F557;
+  font-size: 28px;
+  color: #00aae6;
 }
 .header {
   font-size: 18px;
@@ -58,7 +58,7 @@
   font-weight: bold;
 }
 .header .cell{
-  background-color: white;
+  /* background-color: white; */
 }
 
 .row {

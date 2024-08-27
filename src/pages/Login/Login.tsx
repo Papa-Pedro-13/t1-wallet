@@ -3,17 +3,31 @@ import styles from './Login.module.css';
 import { Button } from '../../shared/ui';
 import Input from '../../shared/ui/Input/Input';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../app/store/store';
+import { loginUser } from '../../features/user/userSlice';
+import { isEmailValid, isPasswordValid } from '../../features/userForm/lib';
+import toast from 'react-hot-toast';
 
-interface LoginForm {
+export interface LoginForm {
   email: string;
   password: string;
 }
 
 const Login = () => {
   const [form, setForm] = useState<LoginForm>({ email: '', password: '' });
+  const dispatch = useAppDispatch();
 
   const onSubmitHandle = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!isEmailValid(form.email)) {
+      toast.error('Введите правильный email');
+      return;
+    }
+    if (isPasswordValid(form.password) !== '') {
+      toast.error(isPasswordValid(form.password));
+      return;
+    }
+    dispatch(loginUser({ ...form }));
   };
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {

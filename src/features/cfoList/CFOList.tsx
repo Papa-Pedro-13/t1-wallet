@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CFOList.module.css';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/store/store';
+import { getCFOList } from './model/cfoSlice';
 
 interface CFO {
   name: string;
@@ -15,9 +17,17 @@ type SortColumn = 'name' | 'initialBudget' | 'remainingBudget';
 type SortOrder = 'asc' | 'desc';
 
 const CFOList: React.FC<CFOListProps> = ({ list }) => {
+  // const { list, isLoading } = useAppSelector((state) => state.cfoList);
+
   const [sortedData, setSortedData] = useState<CFO[]>(list);
   const [sortColumn, setSortColumn] = useState<SortColumn>('name');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCFOList);
+  }, [dispatch]);
 
   const sortData = (column: SortColumn) => {
     const newSortOrder =
@@ -43,6 +53,11 @@ const CFOList: React.FC<CFOListProps> = ({ list }) => {
   return (
     <div className={styles.container}>
       <h3 className={styles.headline}>Список ЦФО</h3>
+      {/* {isLoading ? (
+        <p className={styles.loading}>Загрузка...</p>
+      ) : !isLoading && list?.length === 0 ? (
+        <p className={styles.loading}>Список пуст</p>
+      ) : ( */}
       <div className={styles.table}>
         <div className={styles.header}>
           <div
@@ -81,6 +96,7 @@ const CFOList: React.FC<CFOListProps> = ({ list }) => {
           </Link>
         ))}
       </div>
+      {/* )} */}
     </div>
   );
 };

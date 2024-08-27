@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CFOOperationsDetails.module.css';
 import 'dayjs/locale/de';
-import { DateRangePicker } from 'rsuite';
-import { CFOReport } from '../model/CFOReport';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker, DateRangePicker } from 'rsuite';
+import { CFOReport, Transaction } from '../model/CFOReport';
+import { useParams } from 'react-router';
+import { transactionsList } from '../../../pages/CFODetails/CFODetails';
+import { TransferForm } from '../../moneyTransfer';
+import { useAppSelector } from '../../../app/store/store';
+import ChangeBudget from './ChangeBudget';
 
 interface CFOOperationsDetailsProps {
   report: CFOReport;
@@ -15,17 +18,26 @@ interface CFOOperationsDetailsProps {
 const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
   report,
 }) => {
-  const [balanceDate, setBalanceDate] = useState<Dayjs | null>(
-    dayjs(new Date())
-  );
-  const [period, setPeriod] = useState<[Date, Date] | null>([
-    new Date(),
-    new Date(),
-  ]);
+  //mocks
+  const [balance, setBalance] = useState(20000);
 
-  // useEffect(() => {
-  //   console.log(balanceDate?.toDate().toLocaleDateString());
-  // }, [balanceDate]);
+  const { id } = useParams();
+  const { user } = useAppSelector((state) => state);
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(transactionsList);
+  const [balanceDate, setBalanceDate] = useState<Date | null>(new Date());
+  const [period, setPeriod] = useState<[Date, Date] | null>(null);
+
+  useEffect(() => {
+    if (period === null) return;
+    fetch(
+      `/get-history-of-center/${id}?dateFrom=${period[0]}&dateTo=${period[1]}`
+    )
+      .then((value) => {
+        return value.json();
+      })
+      .then((res: Transaction[]) => setTransactions(res));
+  }, [period, id]);
 
   return (
     <div className={styles.container}>
@@ -34,20 +46,30 @@ const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
       <div className={styles.balanceInfo}>
         <h3 className={styles.headline}>
           Остаток на счете на
-          {/* <DemoContainer components={['DatePicker']}> */}
           <DatePicker
-            label='Выберите дату'
+            oneTap
             value={balanceDate}
             onChange={(newValue) => setBalanceDate(newValue)}
+            defaultValue={new Date()}
+            format='dd.MM.yyyy'
+            placeholder='Выберите дату'
+            style={{ width: 200 }}
           />
-          {/* </DemoContainer> */}:
+          :
         </h3>
-        {/* <p className={styles.prop}>
-          Дата: <span>{balanceDate.toLocaleDateString()}</span> 
-        </p> */}
-
-        <p className={styles.balance}>20000 ₽</p>
+        <p className={styles.balance}>{balance} ₽</p>
       </div>
+
+      <ChangeBudget />
+
+      {/* Need */}
+      {/* {user.currentUser?.id === '1' && ( */}
+      <TransferForm
+        from='ЦФО name'
+        max={balance}
+        headline='Начислить пользователю коины'
+      />
+      {/* )} */}
 
       <div className={styles.transactions}>
         <h3>Транзакции за период</h3>
@@ -56,7 +78,9 @@ const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
           value={period}
           onChange={(date) => setPeriod(date)}
           format='dd.MM.yyyy'
+          placeholder='Выберите дату'
           showHeader={false}
+          style={{ width: 300 }}
         />
 
         <div className={styles.table}>
@@ -67,7 +91,7 @@ const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
             <div className={styles.cell}>Получатель (ID)</div>
             <div className={styles.cell}>Комментарий</div>
           </div>
-          {report.transactions.map((transaction, index) => (
+          {transactions.map((transaction, index) => (
             <div
               key={index}
               className={styles.row}

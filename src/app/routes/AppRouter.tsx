@@ -8,6 +8,7 @@ import Registration from '../../pages/Registration/Registration';
 
 import CFOManager from '../../pages/CFOManager/CFOManager';
 import CFODetails from '../../pages/CFODetails/CFODetails';
+import ProtectedRoute from './ProtectedRoute';
 
 const AppRouter: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter: React.FC = () => {
         path='/register'
         element={<Registration />}
       />
+      {/* <Route element={<ProtectedRoute />}> */}
       <Route
         path='/'
         element={<Layout />}
@@ -42,7 +44,7 @@ const AppRouter: React.FC = () => {
           element={<CFODetails />}
         />
       </Route>
-      {/* Добавьте другие маршруты здесь */}
+      {/* </Route> */}
     </Routes>
   );
 };

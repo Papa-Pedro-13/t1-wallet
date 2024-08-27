@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 
-interface SearchableDropdownProps {
+interface DropdownProps {
   reload: boolean;
   placeholder?: string;
   options: string[];
   onSelect: (selectedOption: string) => void;
 }
 
-const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   placeholder = 'Поиск...',
   options,
   reload,
@@ -42,14 +42,20 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
 
   return (
     <div className={styles.container}>
-      <input
-        type='text'
-        value={searchTerm}
-        onChange={handleInputChange}
-        onClick={toggleDropdown}
-        placeholder={placeholder}
-        className={styles.input}
-      />
+      <div className={styles.inputContainer}>
+        <input
+          type='text'
+          value={searchTerm}
+          onChange={handleInputChange}
+          onClick={toggleDropdown}
+          className={styles.input}
+        />
+        <label
+          className={`${styles.placeholder} ${searchTerm ? styles.shrink : ''}`}
+        >
+          {placeholder}
+        </label>
+      </div>
       {isOpen && (
         <ul className={styles.list}>
           {filteredOptions.map((option, index) => (
@@ -73,4 +79,4 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   );
 };
 
-export default SearchableDropdown;
+export default Dropdown;

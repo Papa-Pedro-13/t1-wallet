@@ -9,8 +9,8 @@ gap: 20px;
 }.table {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 10px; */
   background-color: #f7f7f8;
   overflow: hidden;
   font-size: 18px;
@@ -46,4 +46,9 @@ gap: 20px;
 
 .row:last-child .cell{
   border-bottom: none;
+}
+
+.loading{
+  font-size: 18px;
+  color: #00aae6;
 }

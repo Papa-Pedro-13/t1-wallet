@@ -34,7 +34,7 @@
 .label--focus,
 input:focus + .label {
   font-size: 14px;
-  transform: translateY(-60%);
+  transform: translateY(-50%);
 opacity: .7;
 }
 .input{
