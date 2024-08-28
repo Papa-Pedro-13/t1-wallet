@@ -4,10 +4,16 @@ import { FaPlus, FaMinus } from 'react-icons/fa6';
 interface CounterProps {
   max: number;
   count: number;
+  required?: boolean;
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Counter: React.FC<CounterProps> = ({ max, count, setCount }) => {
+const Counter: React.FC<CounterProps> = ({
+  max,
+  count,
+  setCount,
+  required,
+}) => {
   const MAX = 99999;
 
   const increment = () => {
@@ -56,6 +62,7 @@ const Counter: React.FC<CounterProps> = ({ max, count, setCount }) => {
         value={count}
         className={styles.counter}
         type='number'
+        required={required}
         onChange={onChangeHandle}
       />
 

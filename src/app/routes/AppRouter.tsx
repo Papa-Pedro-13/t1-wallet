@@ -21,30 +21,30 @@ const AppRouter: React.FC = () => {
         path='/register'
         element={<Registration />}
       />
-      {/* <Route element={<ProtectedRoute />}> */}
-      <Route
-        path='/'
-        element={<Layout />}
-      >
-        <Route
-          path='*'
-          element={<NotFound />}
-        />
+      <Route element={<ProtectedRoute />}>
         <Route
           path='/'
-          element={<Home />}
-        />
-        <Route
-          path='/finance'
-          element={<CFOManager />}
-        />
+          element={<Layout />}
+        >
+          <Route
+            path='*'
+            element={<NotFound />}
+          />
+          <Route
+            path='/'
+            element={<Home />}
+          />
+          <Route
+            path='/finance'
+            element={<CFOManager />}
+          />
 
-        <Route
-          path='/finance/:id'
-          element={<CFODetails />}
-        />
+          <Route
+            path='/finance/:id'
+            element={<CFODetails />}
+          />
+        </Route>
       </Route>
-      {/* </Route> */}
     </Routes>
   );
 };

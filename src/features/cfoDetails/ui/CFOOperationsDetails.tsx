@@ -3,11 +3,13 @@ import styles from './CFOOperationsDetails.module.css';
 import 'dayjs/locale/de';
 import { DatePicker, DateRangePicker } from 'rsuite';
 import { CFOReport, Transaction } from '../model/CFOReport';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { transactionsList } from '../../../pages/CFODetails/CFODetails';
 import { TransferForm } from '../../moneyTransfer';
 import { useAppSelector } from '../../../app/store/store';
 import ChangeBudget from './ChangeBudget';
+import { BASE_URL } from '../../../app/ambient/constants';
+import { useGetCFOQuery } from '../model/cfoApi';
 
 interface CFOOperationsDetailsProps {
   report: CFOReport;
@@ -18,55 +20,48 @@ interface CFOOperationsDetailsProps {
 const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
   report,
 }) => {
-  //mocks
-  const [balance, setBalance] = useState(20000);
-
   const { id } = useParams();
   const { user } = useAppSelector((state) => state);
   const [transactions, setTransactions] =
     useState<Transaction[]>(transactionsList);
-  const [balanceDate, setBalanceDate] = useState<Date | null>(new Date());
   const [period, setPeriod] = useState<[Date, Date] | null>(null);
+  const navigate = useNavigate();
+
+  const { data, isFetching, isSuccess, isLoading } = useGetCFOQuery({ id });
 
   useEffect(() => {
-    if (period === null) return;
-    fetch(
-      `/get-history-of-center/${id}?dateFrom=${period[0]}&dateTo=${period[1]}`
-    )
-      .then((value) => {
-        return value.json();
-      })
-      .then((res: Transaction[]) => setTransactions(res));
-  }, [period, id]);
+    if (!isFetching && !isLoading && !isSuccess) {
+      navigate('/');
+    }
+  }, [isFetching, isLoading, isSuccess, navigate]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  // useEffect(() => {
+  //   if (period === null) return;
+  //   fetch(
+  //     `/get-history-of-center/${id}?dateFrom=${period[0]}&dateTo=${period[1]}`
+  //   )
+  //     .then((value) => {
+  //       return value.json();
+  //     })
+  //     .then((res: Transaction[]) => setTransactions(res));
+  // }, [period, id]);
 
   return (
     <div className={styles.container}>
-      <h2>{report.cfoName}</h2>
-
-      <div className={styles.balanceInfo}>
-        <h3 className={styles.headline}>
-          Остаток на счете на
-          <DatePicker
-            oneTap
-            value={balanceDate}
-            onChange={(newValue) => setBalanceDate(newValue)}
-            defaultValue={new Date()}
-            format='dd.MM.yyyy'
-            placeholder='Выберите дату'
-            style={{ width: 200 }}
-          />
-          :
-        </h3>
-        <p className={styles.balance}>{balance} ₽</p>
-      </div>
+      <h2 className={styles.mainHeadline}>{report.cfoName}</h2>
 
       <ChangeBudget />
 
       {/* Need */}
       {/* {user.currentUser?.id === '1' && ( */}
       <TransferForm
+        url={`${BASE_URL}/`}
         from='ЦФО name'
-        max={balance}
+        max={data.budget}
         headline='Начислить пользователю коины'
       />
       {/* )} */}

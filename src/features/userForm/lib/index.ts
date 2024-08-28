@@ -3,9 +3,9 @@ export const isEmailValid = (email: string) => {
   return emailPattern.test(email);
 };
 export const isPasswordValid = (password: string) => {
-  if (password.length < 8) {
-    return 'Пароль должен быть длиннее';
-  }
+  // if (password.length < 8) {
+  //   return 'Пароль должен быть длиннее';
+  // }
   return '';
 };
 

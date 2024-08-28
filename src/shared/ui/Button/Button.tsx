@@ -4,9 +4,10 @@ import './Button.css';
 interface ButtonProps {
   type?: 'button' | 'submit' | 'reset' | undefined;
   text: string;
+
   size?: 'normal' | 'large' | 'small';
   disabled?: boolean;
-  style?: 'normal' | 'reverse';
+  style?: 'normal' | 'reverse' | 'green';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -23,6 +24,10 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
+      style={{
+        backgroundColor: `${style === 'green' ? '#88F657' : ''}`,
+        borderColor: `${style === 'green' ? '#88F657' : ''}`,
+      }}
       className={`${size} button ${style !== 'normal' ? style : ''}`}
     >
       {text}

@@ -1,15 +1,16 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { BASE_URL } from '../../../app/ambient/constants';
 import toast from 'react-hot-toast';
 
-interface CFO {
-  id: string;
+export interface CFO {
+  id: number;
   title: string;
-  amount: string;
+  amount: number;
 }
 
 interface CFOState {
-  list: CFO[] | null;
+  list: CFO[];
   isLoading: boolean;
 }
 
@@ -18,28 +19,55 @@ const initialState: CFOState = {
   isLoading: false,
 };
 
-export const getCFOList = createAsyncThunk('CFO/getCFOList', async () => {
-  try {
-    const res = await fetch(`${BASE_URL}/get-all-centers/`);
-    return res.json();
-  } catch (err) {
-    toast.error('Что-то пошло не так. Обновите страницу');
+const mocks: CFO[] = [
+  { id: 1, title: 'asdasda', amount: 1200 },
+  { id: 2, title: 'GDGDF', amount: 200 },
+];
+export const getCFOList = createAsyncThunk(
+  'CFO/getCFOList',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/get-all-centers/`);
+      return res.data;
+    } catch (err) {
+      toast.error('Что-то пошло не так. Обновите страницу');
+      return thunkAPI.rejectWithValue(err);
+    }
   }
-});
+);
+
+const findCFOById = (state: CFOState, action: PayloadAction<number>) => {
+  const res = state.list.find((element) => {
+    if (element.id === action.payload) {
+      return element;
+    }
+    return false;
+  });
+  if (res === undefined) {
+    return;
+  }
+};
 
 const CFOListSlice = createSlice({
   name: 'CFOList',
   initialState,
-  reducers: {},
+  reducers: {
+    getCFOById: findCFOById,
+  },
   extraReducers: (builder) => {
     builder.addCase(getCFOList.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getCFOList.fulfilled, (state, action) => {
-      state.list = action.payload;
+    builder.addCase(getCFOList.rejected, (state) => {
       state.isLoading = false;
+    });
+    builder.addCase(getCFOList.fulfilled, (state, { payload }) => {
+      if (payload !== undefined) {
+        state.list = payload;
+        state.isLoading = false;
+      }
     });
   },
 });
-// export const { , clearUser } = CFOListSlice.actions;
+// export const { setCFOs } = CFOListSlice.actions;
 export default CFOListSlice.reducer;

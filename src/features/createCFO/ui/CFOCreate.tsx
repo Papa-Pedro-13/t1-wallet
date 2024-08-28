@@ -4,16 +4,20 @@ import Dropdown from '../../../shared/ui/Dropdown/Dropdown';
 
 import Input from '../../../shared/ui/Input/Input';
 import { Button } from '../../../shared/ui';
-import toast from 'react-hot-toast';
 
+import {
+  createCFO,
+  createFromType,
+} from '../../../shared/api/cfo-api/createCFO';
+
+const initFormCreateCFO: createFromType = {
+  owner: '',
+  title: '',
+  budget: 0,
+};
 const CFOCreate = () => {
-  const initForm = {
-    owner: '',
-    name: '',
-    budget: 0,
-  };
   const [dropdownReload, setDropdownReload] = useState(false);
-  const [form, setForm] = useState(initForm);
+  const [form, setForm] = useState(initFormCreateCFO);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -36,20 +40,14 @@ const CFOCreate = () => {
       }
     }
   };
-  const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    for (const value of Object.values(form)) {
-      if (value == 0) {
-        toast.error('Заполните все поля');
-        return;
-      }
+
+    const res = await createCFO(form);
+    if (res) {
+      setForm(initFormCreateCFO);
+      setDropdownReload(!dropdownReload);
     }
-
-    //Need
-
-    //
-    setForm(initForm);
-    setDropdownReload(!dropdownReload);
   };
 
   return (
@@ -62,10 +60,15 @@ const CFOCreate = () => {
       >
         <Input
           placeholder='Название ЦФО'
-          name='name'
-          value={form.name}
+          value={form.title}
+          name='title'
+          // {...register('title')}
           onChange={onChangeHandle}
         />
+        {/* <CustomInput
+          placeholder='Название ЦФО'
+          {...register('title')}
+        /> */}
         <Input
           placeholder='Бюджет ЦФО'
           name='budget'

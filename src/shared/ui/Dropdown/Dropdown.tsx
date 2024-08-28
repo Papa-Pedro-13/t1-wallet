@@ -5,6 +5,8 @@ interface DropdownProps {
   reload: boolean;
   placeholder?: string;
   options: string[];
+  disabled?: boolean;
+  required?: boolean;
   onSelect: (selectedOption: string) => void;
 }
 
@@ -12,7 +14,9 @@ const Dropdown: React.FC<DropdownProps> = ({
   placeholder = 'Поиск...',
   options,
   reload,
+  disabled = false,
   onSelect,
+  required,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -41,12 +45,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${disabled ? styles.disabled : ''}`}>
       <div className={styles.inputContainer}>
         <input
           type='text'
           value={searchTerm}
           onChange={handleInputChange}
+          disabled={disabled}
+          // onBlur={() => setIsOpen(false)}
+          // onFocus={() => setIsOpen(true)}
+          required={required}
           onClick={toggleDropdown}
           className={styles.input}
         />

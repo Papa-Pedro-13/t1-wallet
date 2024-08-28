@@ -8,7 +8,7 @@ flex-direction: column;
 gap: 20px;
 }.table {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 220px;
   /* border: 1px solid #ccc; */
   /* border-radius: 10px; */
   background-color: #f7f7f8;

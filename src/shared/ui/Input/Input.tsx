@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import './Input.css';
 
@@ -7,7 +7,9 @@ interface InputProps {
   name: string;
   type?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string;
+  required?: boolean;
+  error?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -15,25 +17,28 @@ const Input: React.FC<InputProps> = ({
   name,
   type = 'text',
   onChange,
-  value,
+  value = '',
+  error = false,
+  required = false,
 }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const onClickHandle = () => {
-    inputRef.current?.focus();
-  };
+  // const inputRef = useRef<HTMLInputElement | null>(null);
+  // const onClickHandle = () => {
+  //   inputRef.current?.focus();
+  // };
 
   return (
-    <div className='input-block'>
+    <div className={`input-block ${error ? 'error' : ''}`}>
       <input
         className='input'
-        ref={inputRef}
         type={type}
         name={name}
+        id={name}
         value={value}
         onChange={onChange}
+        required={required}
       />
       <label
-        onClick={onClickHandle}
+        htmlFor={name}
         className={`label ${value !== '' ? 'label--focus' : ''}`}
       >
         {placeholder}
@@ -41,5 +46,4 @@ const Input: React.FC<InputProps> = ({
     </div>
   );
 };
-
 export default Input;

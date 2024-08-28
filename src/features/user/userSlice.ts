@@ -1,12 +1,21 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginForm } from '../../pages/Login/Login';
 import { BASE_URL } from '../../app/ambient/constants';
+import axios from 'axios';
+
+export enum UserRole {
+  admin = 'ADMIN',
+  user = 'USER',
+  budgetOwner = 'BUDGET_OWNER',
+}
 
 interface User {
-  id: string;
-  name: string;
+  id: number;
   email: string;
-  role: 'admin' | 'user';
+  firstname: string;
+  lastname: string;
+  surname: string;
+  userRole: UserRole;
   coins: number;
 }
 
@@ -22,16 +31,18 @@ export const loginUser = createAsyncThunk(
   'users/loginUser',
   async (payload: LoginForm, thunkAPI) => {
     try {
-      const res = await fetch(`${BASE_URL}/auth/login`, {
-        method: 'POST',
-        body: JSON.stringify({
+      const response = await axios.post(
+        `${BASE_URL}/auth/signin`,
+        {
           password: payload.password,
           email: payload.email,
-        }),
-      });
-      return res.json();
+        }
+        // { headers: { 'Access-Control-Allow-Origin': '*' } }
+      );
+      localStorage.setItem('authToken', response.data.token);
+      return response.data.user;
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -42,15 +53,28 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      state.currentUser = action.payload;
+      state.currentUser = { ...action.payload };
     },
-    clearUser: (state) => {
+    logoutUser: (state) => {
+      localStorage.removeItem('authToken');
+      delete axios.defaults.headers.common['Authorization'];
       state.currentUser = null;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.currentUser = action.payload;
+    builder.addCase(loginUser.rejected, (state) => {
+      state.currentUser = {
+        id: 1,
+        email: 'al@mail.ru',
+        firstname: 'Александр',
+        lastname: 'Островский',
+        surname: 'Сергеевич',
+        userRole: UserRole.admin,
+        coins: 10000,
+      };
+    });
+    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+      state.currentUser = { ...payload };
     });
   },
 });

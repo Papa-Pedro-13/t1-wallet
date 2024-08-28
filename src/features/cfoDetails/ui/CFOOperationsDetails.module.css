@@ -1,8 +1,9 @@
 .container {
   
   display: flex;
-  flex-direction: column;
   gap: 40px;
+  flex-direction: column;
+  /* flex-wrap: wrap */
 }
 
 .balanceInfo {
@@ -39,7 +40,11 @@
   border-radius: 4px;
   overflow: hidden;
 }
+.mainHeadline{
+  width: 100%;
+}
 .headline{
+  
   display: flex;
   align-items: center;
   gap: 10px;

@@ -5,8 +5,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  /* width: fit-content; */
+  /* width: ; */
 }
 .headline{
   width: 100%;
+}
+.modalHeadline{
+  width: 100%;
+  text-align: center;
+  display: flex;justify-content: center;
 }

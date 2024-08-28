@@ -1,0 +1,46 @@
+.modal{
+  position: fixed;
+  inset:0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;align-items: center;
+  background-color: rgba(0,0, 0, 0.7);
+}
+.content{
+  background-color: #fff;
+  border-radius: 40px;
+  padding: 40px;
+  max-width: 700px;
+  width: 100%;
+  position: relative;
+}
+
+.close{
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.buttons{
+  gap: 20px;
+  margin-top: 20px;
+  display: grid;grid-template-columns: 1fr 1fr;
+}
+.close span{
+  height: 3px;width: 100%;
+  background-color: #00aae6;
+  border-radius: 4px;
+}
+.close span:first-child{
+  transform: translateY(2px) rotate(45deg);
+}
+.close span:last-child{
+  transform: translateY(-1px) rotate(-45deg);
+
+}

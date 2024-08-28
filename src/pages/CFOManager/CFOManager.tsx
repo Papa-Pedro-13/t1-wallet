@@ -1,23 +1,24 @@
 import CFOCreate from '../../features/createCFO/ui/CFOCreate';
-import CFOList from '../../features/cfoList/CFOList';
+import CFOList from '../../features/cfoList/ui/CFOList';
 import styles from './CFOManager.module.css';
-
-const cfoData = [
-  { name: 'ЦФО Москва', initialBudget: 500000, remainingBudget: 200000 },
-  {
-    name: 'ЦФО Санкт-Петербург',
-    initialBudget: 300000,
-    remainingBudget: 100000,
-  },
-  { name: 'ЦФО Казань', initialBudget: 200000, remainingBudget: 150000 },
-];
+import { useAppDispatch, useAppSelector } from '../../app/store/store';
+import { getCFOList } from '../../features/cfoList/model/cfoSlice';
+import { useEffect } from 'react';
+import { UserRole } from '../../features/user/userSlice';
 
 const CFOManager = () => {
+  const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getCFOList());
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.headline}>Управление ЦФО</h2>
-      <CFOCreate />
-      <CFOList list={cfoData} />
+      {currentUser?.userRole === UserRole.admin && <CFOCreate />}
+      <CFOList />
     </div>
   );
 };

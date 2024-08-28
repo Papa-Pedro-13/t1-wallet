@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { useAppSelector } from '../store/store';
 
 interface ProtectedRouteProps {
   redirectPath?: string;
@@ -10,9 +9,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   redirectPath = '/login',
 }) => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.user.currentUser
-  );
+  const isAuthenticated = useAppSelector((state) => state.user.currentUser);
 
   return isAuthenticated === null ? (
     <Navigate

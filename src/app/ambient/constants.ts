@@ -1,1 +1,1 @@
-export const BASE_URL = 'www.google.com';
+export const BASE_URL = 'http://10.4.56.90:3000/api';
