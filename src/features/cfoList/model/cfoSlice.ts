@@ -19,10 +19,10 @@ const initialState: CFOState = {
   isLoading: false,
 };
 
-const mocks: CFO[] = [
-  { id: 1, title: 'asdasda', amount: 1200 },
-  { id: 2, title: 'GDGDF', amount: 200 },
-];
+// const mocks: CFO[] = [
+//   { id: 1, title: 'asdasda', amount: 1200 },
+//   { id: 2, title: 'GDGDF', amount: 200 },
+// ];
 export const getCFOList = createAsyncThunk(
   'CFO/getCFOList',
   async (_, thunkAPI) => {

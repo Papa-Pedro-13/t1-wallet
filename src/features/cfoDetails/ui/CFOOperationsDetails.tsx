@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CFOOperationsDetails.module.css';
 import 'dayjs/locale/de';
-import { DatePicker, DateRangePicker } from 'rsuite';
+import { DateRangePicker } from 'rsuite';
 import { CFOReport, Transaction } from '../model/CFOReport';
 import { useNavigate, useParams } from 'react-router';
 import { transactionsList } from '../../../pages/CFODetails/CFODetails';
 import { TransferForm } from '../../moneyTransfer';
-import { useAppSelector } from '../../../app/store/store';
+// import { useAppSelector } from '../../../app/store/store';
 import ChangeBudget from './ChangeBudget';
 import { BASE_URL } from '../../../app/ambient/constants';
 import { useGetCFOQuery } from '../model/cfoApi';
@@ -21,7 +21,7 @@ const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
   report,
 }) => {
   const { id } = useParams();
-  const { user } = useAppSelector((state) => state);
+  // const { user } = useAppSelector((state) => state);
   const [transactions, setTransactions] =
     useState<Transaction[]>(transactionsList);
   const [period, setPeriod] = useState<[Date, Date] | null>(null);
@@ -37,6 +37,10 @@ const CFOOperationsDetails: React.FC<CFOOperationsDetailsProps> = ({
 
   useEffect(() => {
     console.log(data);
+    //trash
+    if (data) {
+      setTransactions(transactionsList);
+    }
   }, [data]);
 
   // useEffect(() => {

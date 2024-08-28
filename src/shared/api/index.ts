@@ -1,6 +1,7 @@
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-export function handlingRequestError(error) {
+export function handlingRequestError(error: AxiosError) {
   if (error.response) {
     // Запрос был сделан, и сервер ответил кодом состояния, который
     // выходит за пределы 2xx

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { BASE_URL } from '../../../app/ambient/constants';
-import { handlingRequestError } from '../index';
+// import { handlingRequestError } from '../index';
 
 export type createFromType = {
   owner: string;
@@ -19,8 +19,9 @@ export const createCFO = async (form: createFromType) => {
   try {
     const response = await axios.post(`${BASE_URL}/center/create`, { ...form });
     console.log(response);
-  } catch (err) {
-    handlingRequestError(err);
+  } catch {
+    console.log('error');
+    // handlingRequestError(err);
   }
 
   return true;
