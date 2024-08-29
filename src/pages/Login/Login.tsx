@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Login.module.css';
-import { Button } from '../../shared/ui';
-import Input from '../../shared/ui/Input/Input';
+import { Button, Input } from '../../shared/ui';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/store/store';
-import { loginUser } from '../../features/user/userSlice';
+import { loginUser } from '../../features/user/model/userSlice';
 import { isEmailValid, isPasswordValid } from '../../features/userForm/lib';
 import toast from 'react-hot-toast';
 
@@ -16,7 +15,7 @@ export interface LoginForm {
 const Login = () => {
   const [form, setForm] = useState<LoginForm>({ email: '', password: '' });
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.user);
+  const { currentUser, isLoading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,6 +65,7 @@ const Login = () => {
             onChange={onChangeHandle}
           />
           <Button
+            disabled={isLoading}
             text='Войти в аккаунт'
             onClick={onSubmitHandle}
           />

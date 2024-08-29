@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
-import { FaRubleSign, FaHome, FaCoins } from 'react-icons/fa';
+import { FaRubleSign, FaHome, FaCoins, FaRegChartBar } from 'react-icons/fa';
 import { Button } from '../../shared/ui';
-import { useAppSelector } from '../store/store';
-import { UserRole } from '../../features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../store/store';
+import { logoutUser } from '../../features/user/model/userSlice';
+import { UserRole } from '../../features/user/model/types/user';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,11 +20,11 @@ const UserRoleTranslations: { [key in UserRole]: string } = {
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.user);
 
   const onClickHandler = () => {
-    navigate('/login');
+    dispatch(logoutUser());
   };
 
   return (
@@ -49,17 +50,30 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
             Главная
           </Link>
         </li>
-        <li className={styles.item}>
-          <Link
-            to='/finance'
-            className={styles.link}
-          >
-            <FaRubleSign size={24} />
-            Центры финансового обеспечения
-          </Link>
-        </li>
+        {currentUser?.userRole !== UserRole.user && (
+          <li className={styles.item}>
+            <Link
+              to='/finance'
+              className={styles.link}
+            >
+              <FaRubleSign size={24} />
+              Центры финансового обеспечения
+            </Link>
+          </li>
+        )}
+        {currentUser?.userRole === UserRole.admin && (
+          <li className={styles.item}>
+            <Link
+              to='/dashboard'
+              className={styles.link}
+            >
+              <FaRegChartBar size={24} />
+              Анализ денежных потоков
+            </Link>
+          </li>
+        )}
       </ul>
-      {currentUser && (
+      {currentUser ? (
         <div className={styles.user}>
           <div className={styles.userTop}>
             <h3 className={styles.name}>
@@ -80,6 +94,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
             onClick={onClickHandler}
           />
         </div>
+      ) : (
+        <div className={styles.loading}>Идет загрузка...</div>
       )}
     </nav>
   );

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
+import { User } from '../../../features/user/model/types/user';
 
 interface DropdownProps {
   reload: boolean;
   placeholder?: string;
-  options: string[];
+  options: User[];
   disabled?: boolean;
   required?: boolean;
-  onSelect: (selectedOption: string) => void;
+  onSelect: (selectedOption: User) => void;
 }
-
+const getFullName = (user: User) => {
+  return user.firstname + ' ' + user.surname + ' ' + user.lastname;
+};
 const Dropdown: React.FC<DropdownProps> = ({
   placeholder = 'Поиск...',
   options,
@@ -26,16 +29,17 @@ const Dropdown: React.FC<DropdownProps> = ({
     setIsOpen(false);
   }, [reload]);
 
-  const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredOptions = options.filter((option) => {
+    if (getFullName(option).toLowerCase().includes(searchTerm.toLowerCase()))
+      return true;
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleOptionClick = (option: string) => {
-    setSearchTerm(option);
+  const handleOptionClick = (option: User) => {
+    setSearchTerm(getFullName(option));
     setIsOpen(false);
     onSelect(option);
   };
@@ -72,10 +76,11 @@ const Dropdown: React.FC<DropdownProps> = ({
               onClick={() => handleOptionClick(option)}
               className={styles.option}
               style={{
-                backgroundColor: searchTerm === option ? '#f0f0f0' : '#fff',
+                backgroundColor:
+                  searchTerm === getFullName(option) ? '#f0f0f0' : '#fff',
               }}
             >
-              {option}
+              {getFullName(option)}
             </li>
           ))}
           {filteredOptions.length === 0 && (

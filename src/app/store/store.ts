@@ -1,17 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from '../../features/user/userSlice';
-import cfoSlice from '../../features/cfoList/model/cfoSlice';
+import userSlice from '../../features/user/model/userSlice';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { apiSlice } from '../../features/cfoDetails/model/cfoApi';
+import { cfoApiSlice } from '../../features/cfoDetails/model/cfoApiSlice';
+import { transactionsApiSlice } from '../../features/transactions/model/transactionsApiSlice';
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
-    cfoList: cfoSlice,
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    // cfoList: cfoSlice,
+    [cfoApiSlice.reducerPath]: cfoApiSlice.reducer,
+    [transactionsApiSlice.reducerPath]: transactionsApiSlice.reducer,
   },
-  middleware: (getMiddleware) => getMiddleware().concat(apiSlice.middleware),
+  middleware: (getMiddleware) =>
+    getMiddleware()
+      .concat(cfoApiSlice.middleware)
+      .concat(transactionsApiSlice.middleware),
 });
 
 export const useAppDispatch: () => AppDispatch = useDispatch;

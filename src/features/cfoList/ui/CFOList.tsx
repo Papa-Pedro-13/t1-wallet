@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import styles from './CFOList.module.css';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../app/store/store';
-import { CFO } from '../model/cfoSlice';
+import { useGetCFOListApiQuery } from '../../cfoDetails/model/cfoApiSlice';
+import { CFO } from '../model/types';
+import { Pagination } from 'rsuite';
 
 type SortColumn = 'name' | 'initialBudget' | 'remainingBudget';
 type SortOrder = 'asc' | 'desc';
 
 const CFOList = () => {
-  const { list, isLoading } = useAppSelector((state) => state.cfoList);
-
+  const { data, isLoading } = useGetCFOListApiQuery();
+  const [activePage, setActivePage] = useState(1);
   const [sortedData, setSortedData] = useState<CFO[]>([]);
   const [sortColumn, setSortColumn] = useState<SortColumn>('name');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
@@ -25,8 +26,8 @@ const CFOList = () => {
           : b.title.localeCompare(a.title);
       } else {
         return newSortOrder === 'asc'
-          ? a.amount - b.amount
-          : b.amount - a.amount;
+          ? a.budget - b.budget
+          : b.budget - a.budget;
       }
     });
 
@@ -34,48 +35,66 @@ const CFOList = () => {
     setSortOrder(newSortOrder);
     setSortedData(sorted);
   };
-  useEffect(() => {
-    if (!list) return;
+  const pageSize = 10;
+  const startIndex = (activePage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
 
-    setSortedData(list);
-  }, [list]);
+  const paginatedData = sortedData.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    if (!data) return;
+
+    setSortedData(data);
+  }, [data]);
+
   return (
     <div className={styles.container}>
       <h3 className={styles.headline}>Список ЦФО</h3>
       {isLoading ? (
         <p className={styles.loading}>Загрузка...</p>
-      ) : !isLoading && list?.length === 0 ? (
+      ) : !isLoading && sortedData?.length === 0 ? (
         <p className={styles.loading}>Список пуст</p>
       ) : (
-        <div className={styles.table}>
-          <div className={styles.header}>
-            <div
-              className={styles.cell}
-              onClick={() => sortData('name')}
-            >
-              Название ЦФО{' '}
-              {sortColumn === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+        <>
+          <div className={styles.table}>
+            <div className={styles.header}>
+              <div
+                className={styles.cell}
+                onClick={() => sortData('name')}
+              >
+                Название ЦФО{' '}
+                {sortColumn === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </div>
+              <div
+                className={styles.cell}
+                onClick={() => sortData('remainingBudget')}
+              >
+                Остаток бюджета{' '}
+                {sortColumn === 'remainingBudget' &&
+                  (sortOrder === 'asc' ? '↑' : '↓')}
+              </div>
             </div>
-            <div
-              className={styles.cell}
-              onClick={() => sortData('remainingBudget')}
-            >
-              Остаток бюджета{' '}
-              {sortColumn === 'remainingBudget' &&
-                (sortOrder === 'asc' ? '↑' : '↓')}
-            </div>
+            {paginatedData.map((cfo, index) => (
+              <Link
+                to={`/finance/${cfo.id}`}
+                key={index}
+                className={styles.row}
+              >
+                <div className={styles.cell}>{cfo.title}</div>
+                <div className={styles.cell}>{cfo.budget} ₽</div>
+              </Link>
+            ))}
           </div>
-          {sortedData.map((cfo, index) => (
-            <Link
-              to={`/finance/${cfo.id}`}
-              key={index}
-              className={styles.row}
-            >
-              <div className={styles.cell}>{cfo.title}</div>
-              <div className={styles.cell}>{cfo.amount} ₽</div>
-            </Link>
-          ))}
-        </div>
+          <Pagination
+            prev
+            next
+            size='sm'
+            total={sortedData?.length}
+            limit={pageSize}
+            activePage={activePage}
+            onChangePage={setActivePage}
+          />
+        </>
       )}
     </div>
   );

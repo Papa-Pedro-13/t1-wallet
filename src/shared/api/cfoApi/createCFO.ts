@@ -1,10 +1,8 @@
-import axios from 'axios';
 import toast from 'react-hot-toast';
-import { BASE_URL } from '../../../app/ambient/constants';
-// import { handlingRequestError } from '../index';
+import { instance } from '../../../app/ambient/axios.api';
 
 export type createFromType = {
-  owner: string;
+  owner: number;
   title: string;
   budget: number;
 };
@@ -17,13 +15,12 @@ export const createCFO = async (form: createFromType) => {
     }
   }
   try {
-    const response = await axios.post(`${BASE_URL}/center/create`, { ...form });
+    const response = await instance.post('/center/create', { ...form });
     console.log(response);
+    toast.success('ЦФО создан');
   } catch {
-    console.log('error');
-    // handlingRequestError(err);
+    toast.error('ЦФО не создан');
   }
 
   return true;
-  // console.log(form);
 };

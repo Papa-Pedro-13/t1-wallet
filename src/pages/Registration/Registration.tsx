@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Registration.module.css';
-import { Button } from '../../shared/ui';
-import Input from '../../shared/ui/Input/Input';
+import { Button, Input } from '../../shared/ui';
 import { Link } from 'react-router-dom';
 import { isEmailValid, isPasswordValid } from '../../features/userForm/lib';
 import toast from 'react-hot-toast';

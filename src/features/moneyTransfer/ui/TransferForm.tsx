@@ -1,62 +1,36 @@
 import { useState } from 'react';
 import styles from './TransferForm.module.css';
 
-import { Button } from '../../../shared/ui';
-import Input from '../../../shared/ui/Input/Input';
-import Counter from '../../../shared/ui/Counter/Counter';
-import Dropdown from '../../../shared/ui/Dropdown/Dropdown';
+import { Button, Counter, Dropdown, Input } from '../../../shared/ui';
 
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { useAppSelector } from '../../../app/store/store';
+import { TransferFromCFO } from '../model/types';
 
 interface TransferFormProps {
-  from: string;
-  url: string;
+  form: TransferFromCFO;
+  setForm: React.Dispatch<React.SetStateAction<TransferFromCFO>>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   headline?: string;
   max?: number;
 }
 const TransferForm: React.FC<TransferFormProps> = ({
-  from,
   headline = 'Перевести коины',
+  form,
+  onSubmit,
+  setForm,
   max = 99999,
-  url,
 }) => {
-  const initForm = {
-    from: from,
-    reason: '',
-    recipient: '',
-  };
-  const [count, setCount] = useState(0);
-  const [form, setForm] = useState(initForm);
   const [dropdownReload, setDropdownReload] = useState(false);
+
+  const { usersList } = useAppSelector((state) => state.user);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (count === 0) {
-      toast.error('Нельзя переводить 0 коинов');
-      return;
-    }
-
-    try {
-      const response = await axios(url, {
-        data: {
-          ...form,
-          count: count,
-        },
-      });
-      console.log(response);
-      toast.success('Перевод совершён!');
-    } catch {
-      toast.error('Перевод не удался!');
-    }
-
-    setCount(0);
-    setForm(initForm);
+  const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     setDropdownReload(!dropdownReload);
+    onSubmit(e);
   };
 
   return (
@@ -75,27 +49,28 @@ const TransferForm: React.FC<TransferFormProps> = ({
           /> */}
           <Dropdown
             onSelect={(selectedOption) => {
-              setForm({ ...form, recipient: selectedOption });
+              setForm({ ...form, userId: selectedOption.id });
             }}
             required
             reload={dropdownReload}
             placeholder='Получатель'
-            options={['Вася', 'Коля', 'Маша', 'Петя']}
+            options={usersList}
           />
         </div>
         <div className={styles.inputBlock}>
           <Input
             placeholder='Причина перевода'
-            name='reason'
-            value={form.reason}
+            name='comment'
+            value={form.comment}
             required
             onChange={onChangeHandle}
           />
         </div>
         <Counter
           max={max}
-          setCount={setCount}
-          count={count}
+          // setCount={(value) => setForm({ ...form, amount: value })}
+          onChange={(value) => setForm({ ...form, amount: value })}
+          count={form.amount}
           required
         />
         <Button

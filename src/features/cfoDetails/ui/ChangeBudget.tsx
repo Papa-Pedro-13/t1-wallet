@@ -1,15 +1,30 @@
 import { useState } from 'react';
-import Counter from '../../../shared/ui/Counter/Counter';
-import styles from './ChangeBudget.module.css';
-import { Button } from '../../../shared/ui';
-import Modal from '../../../shared/ui/Modal/Modal';
 
-const ChangeBudget = () => {
+import styles from './ChangeBudget.module.css';
+import { Button, Counter, Modal } from '../../../shared/ui';
+
+interface ChangeBudgetProps {
+  value: number;
+  disabled?: boolean;
+  onChange: (value: number) => void;
+  onSubmit: () => void;
+}
+
+const ChangeBudget: React.FC<ChangeBudgetProps> = ({
+  value,
+  onChange,
+  disabled,
+  onSubmit,
+}) => {
   const [isActiveModal, setIsActiveModal] = useState(false);
-  const [newBudget, setNewBudget] = useState(0);
 
   const onSubmitHandle = () => {
+    onSubmit();
     setIsActiveModal(false);
+  };
+
+  const onChangeHandle = (value: number) => {
+    onChange(value);
   };
 
   const onClickHandle = () => {
@@ -21,11 +36,12 @@ const ChangeBudget = () => {
       <h3 className={styles.headline}>Изменить текущий бюджет</h3>
       {/* Need */}
       <Counter
-        max={10000}
-        setCount={setNewBudget}
-        count={newBudget}
+        max={99999}
+        onChange={onChangeHandle}
+        count={value}
       />
       <Button
+        disabled={disabled}
         onClick={onClickHandle}
         text='Изменить'
         size='small'

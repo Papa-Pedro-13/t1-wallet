@@ -24,22 +24,7 @@
 .prop span{
   color: #000;
 }
-.transactions {
-  
-  display: flex;
-  flex-direction: column;gap: 16px;
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 20px;
-}
 
-.table {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr 2fr 3fr;
-  /* border: 1px solid #ccc; */
-  border-radius: 4px;
-  overflow: hidden;
-}
 .mainHeadline{
   width: 100%;
 }
@@ -54,41 +39,4 @@
 .balance{
   font-size: 28px;
   color: #00aae6;
-}
-.header {
-  font-size: 18px;
-  display: contents;
-  color: #00aae6;
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-.header .cell{
-  /* background-color: white; */
-}
-
-.row {
-  font-size: 14px;
-  display: contents;
-}
-
-.cell {
-  padding: 12px 16px;
-  /* border-right: 1px solid #ccc; */
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-}
-
-.cell:last-child {
-  border-right: none;
-}
-
-.row:last-child {
-  border-bottom: none;
-}
-
-
-
-.row:last-child .cell{
-  border-bottom: none;
 }

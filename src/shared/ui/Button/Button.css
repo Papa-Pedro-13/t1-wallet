@@ -23,8 +23,11 @@
   background-color: #005aae;
   color: #fbfbfd;
 }
+.button:disabled:hover {
+  background-color: #00aae6;
+}
 .button:disabled {
-  opacity: .8;
+  opacity: .3;
   cursor: not-allowed;
 }
 .button.reverse{

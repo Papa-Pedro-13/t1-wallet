@@ -9,6 +9,7 @@ import Registration from '../../pages/Registration/Registration';
 import CFOManager from '../../pages/CFOManager/CFOManager';
 import CFODetails from '../../pages/CFODetails/CFODetails';
 import ProtectedRoute from './ProtectedRoute';
+import Dashboard from '../../pages/Dashboard/Dashboard';
 
 const AppRouter: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const AppRouter: React.FC = () => {
         path='/login'
         element={<Login />}
       />
+
       <Route
         path='/register'
         element={<Registration />}
@@ -37,6 +39,10 @@ const AppRouter: React.FC = () => {
           <Route
             path='/finance'
             element={<CFOManager />}
+          />
+          <Route
+            path='/dashboard'
+            element={<Dashboard />}
           />
 
           <Route

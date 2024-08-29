@@ -89,3 +89,6 @@
   display: grid;
   grid-template-columns: 24px auto;
 }
+.loading{
+  color: #fbfbfd;
+}

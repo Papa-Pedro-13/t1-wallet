@@ -1,7 +1,10 @@
 import CFOOperationsDetails from '../../features/cfoDetails/ui/CFOOperationsDetails';
-import { CFOReport } from '../../features/cfoDetails/model/CFOReport';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { useAppSelector } from '../../app/store/store';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { UserRole } from '../../features/user/model/types/user';
 // import { useAppDispatch } from '../../app/store/store';
 // import { getCFOList } from '../../features/cfoList/model/cfoSlice';
 // import { useEffect } from 'react';
@@ -27,23 +30,19 @@ export const transactionsList = [
   },
 ];
 const CFODetails = () => {
-  const report: CFOReport = {
-    cfoName: 'ЦФО Москва',
-    balance: 200000,
-    balanceDate: '2024-08-17',
-    transactions: transactionsList,
-  };
+  const { currentUser } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser?.userRole === UserRole.user) navigate('/');
+  }, [currentUser?.userRole, navigate]);
 
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
       adapterLocale={'de'}
     >
-      <CFOOperationsDetails
-        report={report}
-        startDate={''}
-        endDate={''}
-      />
+      <CFOOperationsDetails />
     </LocalizationProvider>
   );
 };

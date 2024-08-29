@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import styles from './CFOCreate.module.css';
-import Dropdown from '../../../shared/ui/Dropdown/Dropdown';
-
-import Input from '../../../shared/ui/Input/Input';
-import { Button } from '../../../shared/ui';
+import { Button, Dropdown, Input } from '../../../shared/ui';
 
 import {
   createCFO,
   createFromType,
-} from '../../../shared/api/cfo-api/createCFO';
+} from '../../../shared/api/cfoApi/createCFO';
+import { useAppSelector } from '../../../app/store/store';
 
 const initFormCreateCFO: createFromType = {
-  owner: '',
+  owner: 0,
   title: '',
   budget: 0,
 };
 const CFOCreate = () => {
   const [dropdownReload, setDropdownReload] = useState(false);
   const [form, setForm] = useState(initFormCreateCFO);
+
+  const { usersList, currentUser } = useAppSelector((state) => state.user);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -77,11 +77,11 @@ const CFOCreate = () => {
         />
         <Dropdown
           onSelect={(selectedOption) => {
-            setForm({ ...form, owner: selectedOption });
+            setForm({ ...form, owner: selectedOption.id });
           }}
           reload={dropdownReload}
           placeholder='Владелец бюджета'
-          options={['Вася', 'Коля', 'Маша', 'Петя']}
+          options={usersList.filter((user) => user.id !== currentUser?.id)}
         />
         <Button
           text='Создать'

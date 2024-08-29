@@ -5,46 +5,53 @@ interface CounterProps {
   max: number;
   count: number;
   required?: boolean;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  onChange: (value: number) => void;
+  // setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Counter: React.FC<CounterProps> = ({
   max,
   count,
-  setCount,
+  onChange,
+
   required,
 }) => {
   const MAX = 99999;
 
   const increment = () => {
-    setCount((prev) => {
-      if (prev == max) return max;
-      if (prev >= MAX) return MAX;
-      return prev + 1;
-    });
+    if (count == max) {
+      onChange(max);
+      return;
+    }
+    if (count >= MAX) {
+      onChange(MAX);
+      return;
+    }
+    onChange(count + 1);
   };
   const decrement = () => {
-    setCount((prev) => {
-      if (prev == 0) return 0;
-      return prev - 1;
-    });
+    if (count == 0) {
+      onChange(0);
+      return;
+    }
+    return onChange(count - 1);
   };
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value <= -1) {
-      setCount(0);
+      onChange(0);
       return;
     }
 
     if (+e.target.value >= MAX && max > MAX) {
-      setCount(MAX);
+      onChange(MAX);
       return;
     }
 
     if (+e.target.value >= max + 1) {
-      setCount(max);
+      onChange(max);
       return;
     }
-    setCount(+e.target.value);
+    onChange(+e.target.value);
   };
 
   return (
