@@ -25,11 +25,7 @@ const CashFlows = () => {
       //Получаем актуальное
       getMonthReport(new Date().getFullYear(), new Date().getMonth() + 1).then(
         (currentMonthReport) => {
-          const todayReport = currentMonthReport
-            .sort((a, b) =>
-              new Date(a.dateTime) > new Date(b.dateTime) ? 1 : -1
-            )
-            .pop();
+          const todayReport = currentMonthReport.pop();
 
           if (todayReport === undefined) return;
 
@@ -50,9 +46,9 @@ const CashFlows = () => {
         (serverData) => {
           setData(
             serverData
-              .sort((a, b) =>
-                new Date(a.dateTime) > new Date(b.dateTime) ? 1 : -1
-              )
+              // .sort((a, b) =>
+              //   new Date(a.dateTime) > new Date(b.dateTime) ? 1 : -1
+              // )
               .map((day) => [
                 day.dateTime,
                 day.usersCoinsTotal * (isCoinsNominal ? 1 : 10),
