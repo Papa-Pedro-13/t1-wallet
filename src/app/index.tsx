@@ -13,13 +13,12 @@ if (domNode) {
   const root = createRoot(domNode);
 
   root.render(
-    <React.StrictMode>
+    <React.Fragment>
       <Provider store={store}>
-        {/* //Для упрощения развертки */}
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </Provider>
-    </React.StrictMode>
+    </React.Fragment>
   );
 }

@@ -11,14 +11,14 @@ interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   text,
   type = 'button',
   onClick,
   size = 'normal',
   style = 'normal',
   disabled,
-}) => {
+}: ButtonProps) => {
   return (
     <button
       onClick={onClick}

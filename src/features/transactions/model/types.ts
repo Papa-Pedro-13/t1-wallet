@@ -5,15 +5,21 @@ export interface Transaction {
   id: number;
   nameOfOperation: string;
   comment: string;
-  dateTime: Date;
+  dateTime: string;
   amount: number;
   from: string;
   to: string;
-  recipientType: UserRole;
+  recipient: number;
+  senderType: UserRole;
 }
 
 export interface CFOReport extends Transaction {
   center: CFO;
+}
+
+export interface TransactionResponse {
+  data: Transaction[];
+  total: number;
 }
 
 export interface TransactionQueryProps {

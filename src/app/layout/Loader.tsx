@@ -1,7 +1,4 @@
-// components/Loader.js
-
-import React from 'react';
-import styles from './Loader.module.css'; // Подключаем стили для лоадера
+import styles from './Loader.module.css';
 
 const Loader = () => {
   return (

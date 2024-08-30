@@ -14,10 +14,6 @@ const initialState: CFOState = {
   isLoading: false,
 };
 
-// const mocks: CFO[] = [
-//   { id: 1, title: 'asdasda', amount: 1200 },
-//   { id: 2, title: 'GDGDF', amount: 200 },
-// ];
 export const getCFOList = createAsyncThunk(
   'CFO/getCFOList',
   async (_, thunkAPI) => {
@@ -25,7 +21,6 @@ export const getCFOList = createAsyncThunk(
       const res = await instance.get('/center/all');
       return res.data;
     } catch (err) {
-      // toast.error('Что-то пошло не так. Обновите страницу');
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -65,5 +60,5 @@ const CFOListSlice = createSlice({
     });
   },
 });
-// export const { setCFOs } = CFOListSlice.actions;
+
 export default CFOListSlice.reducer;

@@ -6,14 +6,14 @@ interface CounterProps {
   count: number;
   required?: boolean;
   onChange: (value: number) => void;
-  // setCount: React.Dispatch<React.SetStateAction<number>>;
+  color?: 'red' | 'green' | 'black';
 }
 
 const Counter: React.FC<CounterProps> = ({
   max,
   count,
   onChange,
-
+  color = 'black',
   required,
 }) => {
   const MAX = 99999;
@@ -61,12 +61,13 @@ const Counter: React.FC<CounterProps> = ({
         onClick={decrement}
       >
         <FaMinus
-          color='#fbfbfd'
+          color='var(--background-color-4)'
           size={18}
         />
       </div>
       <input
         value={count}
+        style={{ color: color }}
         className={styles.counter}
         type='number'
         required={required}
@@ -78,7 +79,7 @@ const Counter: React.FC<CounterProps> = ({
         onClick={increment}
       >
         <FaPlus
-          color='#fbfbfd'
+          color='var(--background-color-4)'
           size={18}
         />
       </div>

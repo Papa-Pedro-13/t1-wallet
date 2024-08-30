@@ -34,7 +34,7 @@
 }
 .close span{
   height: 3px;width: 100%;
-  background-color: #00aae6;
+  background-color: var(--background-color);
   border-radius: 4px;
 }
 .close span:first-child{

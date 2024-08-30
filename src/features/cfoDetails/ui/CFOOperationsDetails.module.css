@@ -9,7 +9,7 @@
 .balanceInfo {
   display: flex;
   flex-direction: column;gap: 16px;
-  background-color: #f4f4f4;
+  background-color: var(--background-color-2);
   padding: 20px;
   border-radius: 20px;
   width: fit-content;
@@ -38,5 +38,5 @@
 }
 .balance{
   font-size: 28px;
-  color: #00aae6;
+  color: var(--headline-color);
 }

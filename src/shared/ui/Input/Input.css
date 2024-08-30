@@ -56,7 +56,7 @@ opacity: .7;
   
 }
 .input:focus{
-  border-bottom: 1px solid #00aae6;
+  border-bottom: 1px solid var(--background-color);
   
 
 }

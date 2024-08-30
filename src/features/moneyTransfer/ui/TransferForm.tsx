@@ -1,28 +1,27 @@
 import { useState } from 'react';
 import styles from './TransferForm.module.css';
-
 import { Button, Counter, Dropdown, Input } from '../../../shared/ui';
+import { TransferFromCFO, TransferUserToUser } from '../model/types';
+import { User } from '../../user/model/types/user';
+import { CFO } from '../../cfoList/model/types';
 
-import { useAppSelector } from '../../../app/store/store';
-import { TransferFromCFO } from '../model/types';
-
-interface TransferFormProps {
-  form: TransferFromCFO;
-  setForm: React.Dispatch<React.SetStateAction<TransferFromCFO>>;
+interface TransferFormProps<T extends TransferFromCFO | TransferUserToUser> {
+  form: T;
+  setForm: React.Dispatch<React.SetStateAction<T>>;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  recipientsList: User[] | CFO[];
   headline?: string;
   max?: number;
 }
-const TransferForm: React.FC<TransferFormProps> = ({
+const TransferForm = <T extends TransferFromCFO | TransferUserToUser>({
   headline = 'Перевести коины',
   form,
   onSubmit,
   setForm,
+  recipientsList,
   max = 99999,
-}) => {
+}: TransferFormProps<T>) => {
   const [dropdownReload, setDropdownReload] = useState(false);
-
-  const { usersList, currentUser } = useAppSelector((state) => state.user);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,12 +40,6 @@ const TransferForm: React.FC<TransferFormProps> = ({
         onSubmit={onSubmitHandle}
       >
         <div className={styles.inputBlock}>
-          {/* <Input
-            placeholder='Получатель'
-            name='recipient'
-            value={form.recipient}
-            onChange={onChangeHandle}
-          /> */}
           <Dropdown
             onSelect={(selectedOption) => {
               setForm({ ...form, userId: selectedOption.id });
@@ -54,7 +47,7 @@ const TransferForm: React.FC<TransferFormProps> = ({
             required
             reload={dropdownReload}
             placeholder='Получатель'
-            options={usersList.filter((item) => item.id !== currentUser?.id)}
+            options={recipientsList}
           />
         </div>
         <div className={styles.inputBlock}>
@@ -68,7 +61,6 @@ const TransferForm: React.FC<TransferFormProps> = ({
         </div>
         <Counter
           max={max}
-          // setCount={(value) => setForm({ ...form, amount: value })}
           onChange={(value) => setForm({ ...form, amount: value })}
           count={form.amount}
           required
@@ -77,7 +69,6 @@ const TransferForm: React.FC<TransferFormProps> = ({
           text='Перевести'
           size='small'
           type='submit'
-          // onClick={onSubmitHandle}
         />
       </form>
     </div>

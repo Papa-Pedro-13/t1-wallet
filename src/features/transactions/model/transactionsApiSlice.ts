@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getTokenFromLocalStorage } from '../../../shared/lib/storage';
-import { Transaction, TransactionQueryProps } from './types';
+import { TransactionQueryProps, TransactionResponse } from './types';
+import { buildParams } from '../../../shared/api/lib/helpers';
 
 export const transactionsApiSlice = createApi({
   reducerPath: 'transactions',
@@ -16,12 +17,10 @@ export const transactionsApiSlice = createApi({
   }),
   tagTypes: ['transactions'],
   endpoints: (builder) => ({
-    getTransactions: builder.query<Transaction[], TransactionQueryProps>({
+    getTransactions: builder.query<TransactionResponse, TransactionQueryProps>({
       query: ({ id, ...body }) => ({
-        url: `/center/${id}/history`,
-        method: 'POST',
-
-        body,
+        url: buildParams(`/center/${id}/history`, { ...body }),
+        method: 'GET',
       }),
     }),
   }),

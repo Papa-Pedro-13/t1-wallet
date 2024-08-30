@@ -1,18 +1,26 @@
 .container{
   padding: 20px;
   border-radius: 20px;
-  background-color: #f4f4f5;
+  background-color: var(--background-color-2);
   align-items: center;
 }
 .charts{
   display: flex;
-  gap: 40px;
+  /* flex-direction: column; */
+  gap: 60px;
 }
 .chart{
+  /* height: 350px; */
   width: 100%;
 }
-.filters{justify-content: center;
+.filters{
+  margin-bottom: 10px;
+  justify-content: center;
   display: flex;
   gap: 20px;
-  align-items: center;
+  /* align-items: center; */
+}
+.headline{
+  color: var(--headline-color);
+  font-size: 24px;
 }

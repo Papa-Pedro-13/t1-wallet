@@ -16,7 +16,7 @@
     padding: 14px;
     display: flex;
     justify-content: center;align-items: center;
-    background-color: #00aae6;
+    background-color: var(--background-color);
   }
   
 
@@ -30,7 +30,7 @@
   }
   .container{display: flex;
     height: fit-content;
-    border: 2px solid #00aae6;
+    border: 2px solid var(--background-color);
     align-items: center;
     border-radius: 50px;
     overflow: hidden;

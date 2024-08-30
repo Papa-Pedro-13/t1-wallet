@@ -4,8 +4,6 @@ import NotFound from '../../pages/NotFound/NotFound';
 import Home from '../../pages/Home/Home';
 import Layout from '../layout/Layout';
 import Login from '../../pages/Login/Login';
-import Registration from '../../pages/Registration/Registration';
-
 import CFOManager from '../../pages/CFOManager/CFOManager';
 import CFODetails from '../../pages/CFODetails/CFODetails';
 import ProtectedRoute from './ProtectedRoute';
@@ -19,10 +17,6 @@ const AppRouter: React.FC = () => {
         element={<Login />}
       />
 
-      <Route
-        path='/register'
-        element={<Registration />}
-      />
       <Route element={<ProtectedRoute />}>
         <Route
           path='/'

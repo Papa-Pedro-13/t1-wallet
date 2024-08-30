@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dropdown.module.css';
 import { User } from '../../../features/user/model/types/user';
+import { CFO } from '../../../features/cfoList/model/types';
 
 interface DropdownProps {
   reload: boolean;
   placeholder?: string;
-  options: User[];
+  options: User[] | CFO[];
   disabled?: boolean;
   required?: boolean;
-  onSelect: (selectedOption: User) => void;
+  onSelect: (selectedOption: User | CFO) => void;
 }
 const getFullName = (user: User) => {
   return user.firstname + ' ' + user.surname + ' ' + user.lastname;
 };
+function isUser(option: User | CFO): option is User {
+  return (option as User).email !== undefined;
+}
+
+function getCFOAndUserName(value: User | CFO) {
+  if (isUser(value)) {
+    return getFullName(value);
+  } else {
+    return value.title;
+  }
+}
+
+function compareNames(option: User | CFO, compareString: string) {
+  return getCFOAndUserName(option)
+    .toLowerCase()
+    .includes(compareString.toLowerCase());
+}
+
 const Dropdown: React.FC<DropdownProps> = ({
   placeholder = 'Поиск...',
   options,
@@ -30,16 +49,15 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, [reload]);
 
   const filteredOptions = options.filter((option) => {
-    if (getFullName(option).toLowerCase().includes(searchTerm.toLowerCase()))
-      return true;
+    return compareNames(option, searchTerm);
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleOptionClick = (option: User) => {
-    setSearchTerm(getFullName(option));
+  const handleOptionClick = (option: User | CFO) => {
+    setSearchTerm(getCFOAndUserName(option));
     setIsOpen(false);
     onSelect(option);
   };
@@ -76,11 +94,12 @@ const Dropdown: React.FC<DropdownProps> = ({
               onClick={() => handleOptionClick(option)}
               className={styles.option}
               style={{
-                backgroundColor:
-                  searchTerm === getFullName(option) ? '#f0f0f0' : '#fff',
+                backgroundColor: compareNames(option, searchTerm)
+                  ? '#f0f0f0'
+                  : '#fff',
               }}
             >
-              {getFullName(option)}
+              {getCFOAndUserName(option)}
             </li>
           ))}
           {filteredOptions.length === 0 && (

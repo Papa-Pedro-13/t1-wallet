@@ -5,6 +5,9 @@
 
 
 .main {
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: var(--background-color-main);
   flex: 1;
   padding: 20px;
   padding-top: 50px;

@@ -65,13 +65,8 @@ const CFOCreate = () => {
           placeholder='Название ЦФО'
           value={form.title}
           name='title'
-          // {...register('title')}
           onChange={onChangeHandle}
         />
-        {/* <CustomInput
-          placeholder='Название ЦФО'
-          {...register('title')}
-        /> */}
         <Input
           placeholder='Бюджет ЦФО'
           name='budget'

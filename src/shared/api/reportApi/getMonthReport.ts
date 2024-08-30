@@ -16,3 +16,11 @@ export const getMonthReport = async (
     return [];
   }
 };
+export const updateCurrentReport = async (): Promise<string> => {
+  try {
+    const response = await instance.post(`/report/generate`);
+    return response.data;
+  } catch {
+    return '';
+  }
+};

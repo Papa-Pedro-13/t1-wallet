@@ -6,12 +6,14 @@ import { Button, Counter, Modal } from '../../../shared/ui';
 interface ChangeBudgetProps {
   value: number;
   disabled?: boolean;
+  counterColor: 'red' | 'green' | 'black';
   onChange: (value: number) => void;
   onSubmit: () => void;
 }
 
 const ChangeBudget: React.FC<ChangeBudgetProps> = ({
   value,
+  counterColor,
   onChange,
   disabled,
   onSubmit,
@@ -39,6 +41,7 @@ const ChangeBudget: React.FC<ChangeBudgetProps> = ({
         max={99999}
         onChange={onChangeHandle}
         count={value}
+        color={counterColor}
       />
       <Button
         disabled={disabled}

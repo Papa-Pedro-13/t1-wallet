@@ -5,11 +5,14 @@ import styles from './Layout.module.css';
 
 const Layout: React.FC = () => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(false);
+
   return (
-    <div className={styles.layout}>
+    <div className={`${styles.layout} ${darkTheme ? 'dark-mode' : ''}`}>
       <Sidebar
         isOpen={sidebarIsOpen}
         changeOpen={setSidebarIsOpen}
+        changeDarkTheme={setDarkTheme}
       />
       <main
         className={`${styles.main} ${sidebarIsOpen ? '' : styles.mainFull}`}

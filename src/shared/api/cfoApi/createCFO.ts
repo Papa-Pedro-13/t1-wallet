@@ -8,6 +8,10 @@ export type createFromType = {
 };
 
 export const createCFO = async (form: createFromType) => {
+  if (form.budget > 99999) {
+    toast.error('Максимальный бюджет ЦФО 99999');
+    return false;
+  }
   for (const value of Object.values(form)) {
     if (value == 0) {
       toast.error('Заполните все поля');

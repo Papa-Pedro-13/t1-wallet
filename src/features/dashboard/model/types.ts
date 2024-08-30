@@ -1,6 +1,6 @@
 export interface DayReport {
   id: number;
-  userCoinsTotal: number;
-  centerCoinsTotal: number;
+  usersCoinsTotal: number;
+  centersCoinsTotal: number;
   dateTime: string;
 }

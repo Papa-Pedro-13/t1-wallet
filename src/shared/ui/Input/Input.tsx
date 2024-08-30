@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import './Input.css';
 
@@ -21,10 +21,7 @@ const Input: React.FC<InputProps> = ({
   error = false,
   required = false,
 }) => {
-  // const inputRef = useRef<HTMLInputElement | null>(null);
-  // const onClickHandle = () => {
-  //   inputRef.current?.focus();
-  // };
+  const unicId = useMemo(() => name + Math.random(), [name]);
 
   return (
     <div className={`input-block ${error ? 'error' : ''}`}>
@@ -32,13 +29,13 @@ const Input: React.FC<InputProps> = ({
         className='input'
         type={type}
         name={name}
-        id={name}
+        id={unicId}
         value={value}
         onChange={onChange}
         required={required}
       />
       <label
-        htmlFor={name}
+        htmlFor={unicId}
         className={`label ${value !== '' ? 'label--focus' : ''}`}
       >
         {placeholder}

@@ -2,10 +2,10 @@
   text-align: center;
   padding: 20px 80px;
   font-size: 26px;
-  color: #fbfbfd;
-  background-color: #00aae6;
+  color: var(--background-color-4);
+  background-color: var(--background-color);
   user-select: none;
-  border: 1px solid #00aae6;
+  border: 1px solid var(--background-color);
   border-radius: 200px;
   cursor: pointer;
   transition: all 0.5s linear;
@@ -20,22 +20,22 @@
   font-size: 48px;
 }
 .button:hover {
-  background-color: #005aae;
-  color: #fbfbfd;
+  background-color: var(--button-hover);
+  color: var(--background-color-4);
 }
 .button:disabled:hover {
-  background-color: #00aae6;
+  background-color: var(--background-color);
 }
 .button:disabled {
   opacity: .3;
   cursor: not-allowed;
 }
 .button.reverse{
-  background-color: #fbfbfd;
-  color: #00aae6;
+  background-color: var(--background-color-4);
+  color: var(--headline-color);
 }
 .button.reverse:hover{
-  background-color: #ededed;
+  background-color: var(--button-reverse);
 }
 @media(max-width:1240px){
   .button{

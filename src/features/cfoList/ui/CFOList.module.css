@@ -1,6 +1,6 @@
 
 .container{
-  background-color: #f7f7f8;
+  background-color: var(--background-color-3);
 border-radius: 20px;
 padding: 20px;
 display: flex;
@@ -11,17 +11,17 @@ gap: 20px;
   grid-template-columns: 2fr 220px;
   /* border: 1px solid #ccc; */
   /* border-radius: 10px; */
-  background-color: #f7f7f8;
+  background-color: var(--background-color-3);
   overflow: hidden;
   font-size: 18px;
 }
 
 .header {
   display: contents;
-  background-color: #f4f4f4;
+  background-color: var(--background-color-2);
   font-weight: bold;
   /* color: #a5b4c4; */
-  color: #00aae6;
+  color: var(--headline-color);
   cursor: pointer;
 
 }
@@ -50,5 +50,5 @@ gap: 20px;
 
 .loading{
   font-size: 18px;
-  color: #00aae6;
+  color: var(--headline-color);
 }

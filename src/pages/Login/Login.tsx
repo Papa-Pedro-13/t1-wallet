@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Login.module.css';
 import { Button, Input } from '../../shared/ui';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/store/store';
 import { loginUser } from '../../features/user/model/userSlice';
 import { isEmailValid, isPasswordValid } from '../../features/userForm/lib';
@@ -70,16 +70,6 @@ const Login = () => {
             onClick={onSubmitHandle}
           />
         </form>
-        <p className={styles.paragraph}>
-          Если у вас еще нет аккаунта
-          <Link
-            to={'/register'}
-            className={styles.link}
-          >
-            {' '}
-            создайте новый!
-          </Link>
-        </p>
       </div>
     </div>
   );

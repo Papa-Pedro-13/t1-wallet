@@ -1,7 +1,7 @@
 .container{
   padding: 20px;
   border-radius: 20px;
-  background-color: #f4f4f5;
+  background-color: var(--background-color-2);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;

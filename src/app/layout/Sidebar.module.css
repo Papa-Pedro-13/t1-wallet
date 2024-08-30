@@ -1,5 +1,5 @@
 .sidebar{
-  background-color: #00aae6;
+  background-color: var(--background-color);
   width: 100%;
   max-width: 320px;
   padding: 20px;
@@ -18,12 +18,17 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.toggle{
+  position: absolute;
+  top: 16px;
+  left: 20px;
+}
 .close{
   transition: all .3s linear;
   position: absolute;
   top: 20px;
   right: 20px;
-  color: #fbfbfd;
+  color: var(--background-color-4);
   cursor:pointer;
   display: flex;
   flex-direction: column;
@@ -31,8 +36,11 @@
   width: 30px;
   transform: translateX(70px);
 }
+.label{
+  color: var(--background-color-4);
+}
 .close.openClose span{
-  background-color: #fbfbfd;
+  background-color: var(--background-color-4);
 }
 .close.openClose span:first-child{
   transform: translateY(9px) rotate(45deg);
@@ -50,7 +58,7 @@
   transition: all .3s linear;
   width: 100%;
   height: 3px;
-  background-color: #00aae6;
+  background-color: var(--background-color);
   border-radius: 10px;
 }
 .list{
@@ -60,14 +68,14 @@
   list-style: none;
 }
 .budget{
-  color: #fbfbfd;
+  color: var(--background-color-4);
   font-size: 18px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 .name{
-  color: #fbfbfd;
+  color: var(--background-color-4);
   font-size: 22px;
 }
 .userTop{
@@ -77,7 +85,7 @@
 }
 .role{
   opacity: .7 ;
-  color: #fbfbfd;
+  color: var(--background-color-4);
   font-size: 18px;
   margin-top:6px;
   margin-bottom: 16px;
@@ -85,10 +93,10 @@
 .link{
   /* font-size: 24px; */
   gap: 16px;
-  color: #fbfbfd;
+  color: var(--background-color-4);
   display: grid;
   grid-template-columns: 24px auto;
 }
 .loading{
-  color: #fbfbfd;
+  color: var(--background-color-4);
 }

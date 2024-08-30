@@ -12,7 +12,7 @@ import {
 } from '../features/user/model/userSlice';
 import Loader from './layout/Loader';
 
-const App: React.FC = () => {
+const App = () => {
   const dispatch = useAppDispatch();
   const { currentUser, isLoading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
@@ -36,9 +36,6 @@ const App: React.FC = () => {
     dispatch(getAllUsers());
   }, [dispatch, checkAuth]);
 
-  // if (currentUser === null && isLoading === true) {
-  //   return <div className=''>Pfuheprf</div>;
-  // }
   return (
     <>
       {currentUser === null && isLoading === true ? <Loader /> : <AppRouter />}

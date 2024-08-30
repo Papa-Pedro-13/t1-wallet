@@ -20,7 +20,7 @@
 
 .header {
   display: contents;
-  background-color: #f4f4f4;
+  background-color: var(--background-color-2);
   font-weight: bold;
 }
 

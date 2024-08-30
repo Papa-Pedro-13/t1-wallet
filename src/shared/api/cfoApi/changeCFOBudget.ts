@@ -15,7 +15,7 @@ export const changeBudget = async (
 
   try {
     await instance.post(`center/${data.id}/edit-budget`, {
-      id: data.id,
+      // id: data.id,
       amount: Math.abs(data.budget - newBudget),
       transactionType: transactionType,
       comment: 'Изменён бюджет ЦФО',

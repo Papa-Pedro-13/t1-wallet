@@ -7,10 +7,12 @@ import { Button } from '../../shared/ui';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { logoutUser } from '../../features/user/model/userSlice';
 import { UserRole } from '../../features/user/model/types/user';
+import { Toggle } from 'rsuite';
 
 interface SidebarProps {
   isOpen: boolean;
   changeOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  changeDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserRoleTranslations: { [key in UserRole]: string } = {
@@ -19,7 +21,11 @@ const UserRoleTranslations: { [key in UserRole]: string } = {
   [UserRole.budgetOwner]: 'Ответственный за бюджеты',
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  changeOpen,
+  changeDarkTheme,
+}) => {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.user);
 
@@ -39,6 +45,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, changeOpen }) => {
         <span></span>
         <span></span>
         <span></span>
+      </div>
+      <div className={styles.toggle}>
+        <Toggle
+          color='cyan'
+          onChange={(checked) => changeDarkTheme(checked)}
+        >
+          <span className={styles.label}>Темная тема</span>
+        </Toggle>
       </div>
       <ul className={styles.list}>
         <li className={styles.item}>
