@@ -5,7 +5,7 @@ import 'normalize.css';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 const domNode = document.getElementById('root');
 
@@ -16,9 +16,9 @@ if (domNode) {
     <React.StrictMode>
       <Provider store={store}>
         {/* //Для упрощения развертки */}
-        <HashRouter>
+        <BrowserRouter>
           <App />
-        </HashRouter>
+        </BrowserRouter>
       </Provider>
     </React.StrictMode>
   );
