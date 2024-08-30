@@ -15,11 +15,11 @@ export const createCFO = async (form: createFromType) => {
     }
   }
   try {
-    const response = await instance.post('/center/create', { ...form });
-    console.log(response);
+    await instance.post('/center/create', { ...form });
     toast.success('ЦФО создан');
   } catch {
     toast.error('ЦФО не создан');
+    return false;
   }
 
   return true;

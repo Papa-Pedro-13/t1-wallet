@@ -7,3 +7,16 @@ export const instance = axios.create({
     Authorization: getTokenFromLocalStorage(),
   },
 });
+
+instance.interceptors.request.use(
+  (config) => {
+    const token = getTokenFromLocalStorage();
+    if (token) {
+      config.headers['Authorization'] = token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

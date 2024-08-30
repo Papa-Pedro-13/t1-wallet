@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useAppSelector } from '../../app/store/store';
+import { useAppDispatch, useAppSelector } from '../../app/store/store';
 import { TransferForm } from '../../features/moneyTransfer';
 import styles from './Home.module.css';
 import { TransferFromCFO } from '../../features/moneyTransfer/model/types';
 import { TransferCoinsFromUser } from '../../shared/api/transferApi/transferApi';
+import { getUser } from '../../features/user/model/userSlice';
 const Home = () => {
   const [form, setForm] = useState<TransferFromCFO>({
     amount: 0,
@@ -11,6 +12,7 @@ const Home = () => {
     comment: '',
   });
   const { currentUser } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.container}>
@@ -21,7 +23,7 @@ const Home = () => {
         headline='Перевести собственные коины'
         max={currentUser?.coins}
         onSubmit={(e) => {
-          TransferCoinsFromUser(e, form);
+          TransferCoinsFromUser(e, form).then(() => dispatch(getUser()));
         }}
       />
     </div>

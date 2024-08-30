@@ -7,6 +7,7 @@ import {
   createFromType,
 } from '../../../shared/api/cfoApi/createCFO';
 import { useAppSelector } from '../../../app/store/store';
+import { useGetCFOListApiQuery } from '../../cfoDetails/model/cfoApiSlice';
 
 const initFormCreateCFO: createFromType = {
   owner: 0,
@@ -16,6 +17,7 @@ const initFormCreateCFO: createFromType = {
 const CFOCreate = () => {
   const [dropdownReload, setDropdownReload] = useState(false);
   const [form, setForm] = useState(initFormCreateCFO);
+  const { refetch } = useGetCFOListApiQuery();
 
   const { usersList, currentUser } = useAppSelector((state) => state.user);
 
@@ -45,6 +47,7 @@ const CFOCreate = () => {
 
     const res = await createCFO(form);
     if (res) {
+      refetch();
       setForm(initFormCreateCFO);
       setDropdownReload(!dropdownReload);
     }

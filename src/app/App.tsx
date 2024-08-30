@@ -10,6 +10,7 @@ import {
   getUser,
   logoutUser,
 } from '../features/user/model/userSlice';
+import Loader from './layout/Loader';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -40,11 +41,7 @@ const App: React.FC = () => {
   // }
   return (
     <>
-      {currentUser === null && isLoading === true ? (
-        <div className=''>asdasd</div>
-      ) : (
-        <AppRouter />
-      )}
+      {currentUser === null && isLoading === true ? <Loader /> : <AppRouter />}
       <Toaster position='top-center' />
     </>
   );

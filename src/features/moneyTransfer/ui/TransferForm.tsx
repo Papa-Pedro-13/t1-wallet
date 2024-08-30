@@ -22,7 +22,7 @@ const TransferForm: React.FC<TransferFormProps> = ({
 }) => {
   const [dropdownReload, setDropdownReload] = useState(false);
 
-  const { usersList } = useAppSelector((state) => state.user);
+  const { usersList, currentUser } = useAppSelector((state) => state.user);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -54,7 +54,7 @@ const TransferForm: React.FC<TransferFormProps> = ({
             required
             reload={dropdownReload}
             placeholder='Получатель'
-            options={usersList}
+            options={usersList.filter((item) => item.id !== currentUser?.id)}
           />
         </div>
         <div className={styles.inputBlock}>

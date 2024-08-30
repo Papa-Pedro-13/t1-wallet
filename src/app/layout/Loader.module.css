@@ -1,0 +1,21 @@
+/* Loader.css */
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Высота на весь экран */
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Светло-серый цвет */
+  border-top: 8px solid #3498db; /* Цвет границы (синий в этом примере) */
+  border-radius: 50%; /* Делает границы круглыми */
+  width: 50px; /* Ширина лоадера */
+  height: 50px; /* Высота лоадера */
+  animation: spin 1s linear infinite; /* Анимация вращения */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
