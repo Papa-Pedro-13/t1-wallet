@@ -50,6 +50,12 @@ const CFOOperationsDetails = () => {
 
   useEffect(() => {
     if (data) {
+      if (
+        data.budgetOwner.id !== currentUser?.id &&
+        currentUser?.userRole === UserRole.budgetOwner
+      ) {
+        navigate('/');
+      }
       setNewBudget(data.budget);
     }
   }, [data]);

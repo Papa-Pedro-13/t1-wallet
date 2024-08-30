@@ -35,7 +35,7 @@ const CFOList = () => {
     setSortOrder(newSortOrder);
     setSortedData(sorted);
   };
-  const pageSize = 10;
+  const pageSize = 20;
   const startIndex = (activePage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 

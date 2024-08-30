@@ -14,7 +14,7 @@ const TransactionsTable = () => {
   const [activePage, setActivePage] = useState(1);
 
   // const { usersList } = useAppSelector((state) => state.user);
-  const pageSize = 2;
+  const pageSize = 10;
   const { data, isLoading } = useGetTransactionsQuery({
     id: +id,
     pageSize: pageSize,
