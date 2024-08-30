@@ -15,7 +15,7 @@ if (domNode) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        //Для упрощения развертки
+        {/* //Для упрощения развертки */}
         <HashRouter>
           <App />
         </HashRouter>
