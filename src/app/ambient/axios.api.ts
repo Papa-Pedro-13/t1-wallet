@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getTokenFromLocalStorage } from '../../shared/lib/storage';
 
 export const instance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://10.4.56.90:3000/api',
   headers: {
     Authorization: getTokenFromLocalStorage(),
   },

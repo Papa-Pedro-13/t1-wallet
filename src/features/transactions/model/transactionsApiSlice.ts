@@ -6,7 +6,7 @@ import { buildParams } from '../../../shared/api/lib/helpers';
 export const transactionsApiSlice = createApi({
   reducerPath: 'transactions',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api',
+    baseUrl: 'http://10.4.56.90:3000/api',
     prepareHeaders: (headers) => {
       const token = getTokenFromLocalStorage();
       if (token) {

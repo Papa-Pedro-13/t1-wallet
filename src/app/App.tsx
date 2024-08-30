@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppRouter from './routes/AppRouter';
 import { Toaster } from 'react-hot-toast';
